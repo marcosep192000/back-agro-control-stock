@@ -1,5 +1,8 @@
 package com.agro.admin.controlller;
 
+import com.agro.admin.models.request.ProductRequest;
+import com.agro.admin.service.impl.ProductServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -14,12 +17,14 @@ import java.util.Optional;
 @RequestMapping("/product")
 public class ProductController {
 
-//	@PostMapping
-//	public ResponseEntity<Void> save(@RequestBody @Validated ProductDto productDto) {
-//		productService.save(productDto);
-//		return ResponseEntity.ok().build();
-//	}
-//
+	@Autowired
+	ProductServiceImpl productService;
+	@PostMapping("/create-product")
+	public ResponseEntity<Void> save(@RequestBody @Validated ProductRequest productRequest) {
+	   ResponseEntity<?> responseEntity=productService.createProduct(productRequest);
+		return new ResponseEntity(responseEntity.getBody(),responseEntity.getStatusCode());
+	}
+
 //	@GetMapping("/{id}")
 //	public ResponseEntity<ProductDto> findById(@PathVariable("id") Long id) {
 //		ProductDto product = productService.findById(id);
