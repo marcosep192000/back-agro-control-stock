@@ -17,6 +17,8 @@ public class Product {
 	private String descriptionProduct;
 	private float  priceDls ;
 	private  float iva;
+	private float stock;//ver o agregar stock por almacen
+	private String format;
 	private boolean state = true;
 	@UpdateTimestamp
 	@Column(name = "updated_on_date")

@@ -7,7 +7,7 @@ import com.agro.admin.models.request.CategoryRequest;
 import com.agro.admin.repository.CategoryRepository;
 import com.agro.admin.repository.ProductRepository;
 import com.agro.admin.security.util.Mensaje;
-import com.agro.admin.service.ICategoryService;
+import com.agro.admin.service.interfaces.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

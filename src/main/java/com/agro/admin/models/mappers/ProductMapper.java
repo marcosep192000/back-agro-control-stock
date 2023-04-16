@@ -1,4 +1,5 @@
 package com.agro.admin.models.mappers;
+import java.time.LocalDateTime;
 
 import com.agro.admin.models.entity.Category;
 import com.agro.admin.models.entity.Product;
@@ -38,6 +39,11 @@ public class ProductMapper {
 		response.setPriceDls(product.getPriceDls());
 		response.setUpdateDate(product.getUpdateDate());
 		return response ;
+	}
+
+	public  Product ProductSoftDelete(Product pro, boolean  state ){
+		 pro.setState(state);
+		 return pro;
 	}
 
 

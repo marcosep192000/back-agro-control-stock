@@ -24,4 +24,5 @@ public class ProductResponse {
 	@Column(name = "updated_on_date")
 	private LocalDateTime updateDate;
 
+
 }
