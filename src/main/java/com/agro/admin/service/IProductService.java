@@ -10,6 +10,7 @@ import java.util.List;
 public interface IProductService {
 
 	ResponseEntity<Product> createProduct(ProductRequest request);
+	ResponseEntity<Product> create(ProductRequest request,Long id );
 	Product updateProduct( Long id) ;
 	ProductResponse softDelete (Long id ,boolean state);
 	List<ProductResponse> allProduct();

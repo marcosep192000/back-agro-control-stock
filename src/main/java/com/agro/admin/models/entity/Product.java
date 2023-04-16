@@ -21,4 +21,8 @@ public class Product {
 	@UpdateTimestamp
 	@Column(name = "updated_on_date")
 	private LocalDateTime updateDate;
+
+	@ManyToOne
+	Category category;
+
 }
