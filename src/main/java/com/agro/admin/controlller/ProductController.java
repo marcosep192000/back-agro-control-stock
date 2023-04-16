@@ -1,6 +1,8 @@
 package com.agro.admin.controlller;
 
+import com.agro.admin.models.entity.Product;
 import com.agro.admin.models.request.ProductRequest;
+import com.agro.admin.repository.CategoryRepository;
 import com.agro.admin.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @RestController
@@ -19,11 +22,21 @@ public class ProductController {
 
 	@Autowired
 	ProductServiceImpl productService;
-	@PostMapping("/create-product")
-	public ResponseEntity<Void> save(@RequestBody @Validated ProductRequest productRequest) {
-	   ResponseEntity<?> responseEntity=productService.createProduct(productRequest);
+	@Autowired
+	private CategoryRepository categoryRepository;
+
+
+	@Transactional
+	@PostMapping("/create-product/{idCategory}")
+	public ResponseEntity<Void> saveProduct(@RequestBody @Validated ProductRequest productRequest ,@PathVariable Long idCategory) {
+		ResponseEntity<?> responseEntity=productService.create(productRequest,idCategory);
 		return new ResponseEntity(responseEntity.getBody(),responseEntity.getStatusCode());
 	}
+
+  }
+
+
+
 
 //	@GetMapping("/{id}")
 //	public ResponseEntity<ProductDto> findById(@PathVariable("id") Long id) {
@@ -46,4 +59,3 @@ public class ProductController {
 //		productService.update(productDto, id);
 //		return ResponseEntity.ok().build();
 //	}
-}
