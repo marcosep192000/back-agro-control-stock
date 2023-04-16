@@ -15,10 +15,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ProductServiceImpl implements IProductService {
 
 	@Autowired
@@ -40,7 +42,7 @@ Product product1;
 		return new ResponseEntity(new Mensaje("not create error! "),HttpStatus.BAD_REQUEST);
 	}
 
-	@Transactional
+
 	@Override
 	public ResponseEntity<Product> create(ProductRequest request,Long id) {
 		Optional<Product> product= productRepository.findByNameProduct(request.getNameProduct());
@@ -50,12 +52,10 @@ Product product1;
 			product1 = mapper.productRequestToProduc(request,category);
 			productRepository.save(product1);
 		 category.getProduct().add(product1);
-
 			return new ResponseEntity(new Mensaje("create product"), HttpStatus.CREATED);
 		}
 		return new ResponseEntity(new Mensaje("not create error! "),HttpStatus.BAD_REQUEST);
 	}
-
 	@Override
 	public Product updateProduct(Long id) {
 		return null;
@@ -64,10 +64,25 @@ Product product1;
 	public ProductResponse softDelete(Long id, boolean state) {
 		return null;
 	}
+
+	//find products --------------------------------------------------
+	//----------------------------------------------------------------
 	@Override
-	public List<ProductResponse> allProduct() {
-		return null;
+	public ResponseEntity<List<ProductResponse>> allProduct() {
+	 List<Product> products = productRepository.findAll();
+	 List<ProductResponse>productList = new ArrayList<>();
+
+	 products.forEach(product -> {
+		 ProductResponse response = mapper.productToProductResponse(product);
+		 productList.add(response);
+	 });
+
+		return new ResponseEntity(productList,HttpStatus.ACCEPTED);
 	}
+
+
+
+
 	@Override
 	public ProductResponse findByName(String name) {
 		return null;

@@ -31,10 +31,12 @@ public class ProductMapper {
 	}
 	public ProductResponse productToProductResponse (Product product){
 		ProductResponse response = new ProductResponse() ;
-		response.setDescriptionProduct(product.getDescriptionProduct());
+		response.setId(product.getId());
+	response.setDescriptionProduct(product.getDescriptionProduct());
 		response.setIva(product.getIva());
 		response.setNameProduct(product.getNameProduct());
 		response.setPriceDls(product.getPriceDls());
+		response.setUpdateDate(product.getUpdateDate());
 		return response ;
 	}
 

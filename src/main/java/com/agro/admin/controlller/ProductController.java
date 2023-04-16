@@ -26,13 +26,30 @@ public class ProductController {
 	private CategoryRepository categoryRepository;
 
 
-	@Transactional
+
 	@PostMapping("/create-product/{idCategory}")
 	public ResponseEntity<Void> saveProduct(@RequestBody @Validated ProductRequest productRequest ,@PathVariable Long idCategory) {
 		ResponseEntity<?> responseEntity=productService.create(productRequest,idCategory);
 		return new ResponseEntity(responseEntity.getBody(),responseEntity.getStatusCode());
 	}
 
+	@PostMapping("/update-product/{idCategory}")
+	public ResponseEntity<Void> updateProduct(@RequestBody @Validated ProductRequest productRequest ,@PathVariable Long idCategory) {
+		ResponseEntity<?> responseEntity=productService.create(productRequest,idCategory);
+		return new ResponseEntity(responseEntity.getBody(),responseEntity.getStatusCode());
+	}
+
+	@GetMapping("/all-product")
+	public ResponseEntity<Void> findProduct() {
+		ResponseEntity<?> responseEntity= (ResponseEntity<?>) productService.allProduct();
+		return new ResponseEntity(responseEntity.getBody(),responseEntity.getStatusCode());
+	}
+
+	@PostMapping("/delete-product/{idCategory}")
+	public ResponseEntity<Void> deleteProduct(@RequestBody @Validated ProductRequest productRequest ,@PathVariable Long idCategory) {
+		ResponseEntity<?> responseEntity=productService.create(productRequest,idCategory);
+		return new ResponseEntity(responseEntity.getBody(),responseEntity.getStatusCode());
+	}
   }
 
 

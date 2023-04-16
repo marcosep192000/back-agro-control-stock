@@ -13,6 +13,6 @@ public interface IProductService {
 	ResponseEntity<Product> create(ProductRequest request,Long id );
 	Product updateProduct( Long id) ;
 	ProductResponse softDelete (Long id ,boolean state);
-	List<ProductResponse> allProduct();
+	ResponseEntity<List<ProductResponse>> allProduct();
 	ProductResponse findByName(String name);
 }
