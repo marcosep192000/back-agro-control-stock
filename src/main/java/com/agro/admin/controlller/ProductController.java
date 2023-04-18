@@ -30,25 +30,21 @@ public class ProductController {
 	private CategoryRepository categoryRepository;
 	@Autowired
 	private ProductRepository productRepository;
-
 	@PostMapping("/create-product/{idCategory}")
 	public ResponseEntity<Void> saveProduct(@RequestBody @Validated ProductRequest productRequest ,@PathVariable Long idCategory) {
 		ResponseEntity<?> responseEntity=productService.create(productRequest,idCategory);
 		return new ResponseEntity(responseEntity.getBody(),responseEntity.getStatusCode());
 	}
-
 	@PutMapping("/update-product/{idCategory}")
 	public ResponseEntity<Void> updateProduct(@RequestBody @Validated ProductRequest productRequest ,@PathVariable Long idCategory) {
 		ResponseEntity<?> responseEntity=productService.updateProduct(productRequest,idCategory);
 		return new ResponseEntity(responseEntity.getBody(),responseEntity.getStatusCode());
 	}
-
 	@GetMapping("/all-product")
 	public ResponseEntity<Void> findProduct() {
 		ResponseEntity<?> responseEntity= (ResponseEntity<?>) productService.allProduct();
 		return new ResponseEntity(responseEntity.getBody(),responseEntity.getStatusCode());
 	}
-
 	@DeleteMapping("/delete-product/{idCategory}")
 	public ResponseEntity<?> deleteProduct(@PathVariable Long idCategory) {
 		ResponseEntity response = productService.softDelete(idCategory);
@@ -57,7 +53,6 @@ public class ProductController {
 	@GetMapping("/find-product/{name}")
 	public ResponseEntity<?> findNameProduct(@PathVariable String name) {
 		ProductResponse response = productService.findByName(name);
-
 		return new ResponseEntity(response, HttpStatus.OK);
 	}
   }
