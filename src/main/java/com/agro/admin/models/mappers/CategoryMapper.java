@@ -12,8 +12,6 @@ public class CategoryMapper {
 	    category.setDescriptionCategory(categoryRequest.getDescriptionCategory());
 	    return category;
 
-
-
 	}
 
 }
