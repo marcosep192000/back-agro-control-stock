@@ -15,61 +15,72 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ProductServiceImpl implements IProductService {
-
 	@Autowired
 	ProductMapper mapper;
 	@Autowired
 	ProductRepository productRepository;
 	@Autowired
 	CategoryRepository categoryRepository;
-	@Override
-	public ResponseEntity<Product> createProduct(ProductRequest request) {
-		Optional<Product> product= productRepository.findByNameProduct(request.getNameProduct());
-Product product1;
-	if (product.isEmpty()){
-		 product1 = mapper.productRequestToProduct(request);
-		productRepository.save(product1);
 
-		return new ResponseEntity(new Mensaje("create product"), HttpStatus.CREATED);
-	}
-		return new ResponseEntity(new Mensaje("not create error! "),HttpStatus.BAD_REQUEST);
-	}
-
-	@Transactional
 	@Override
-	public ResponseEntity<Product> create(ProductRequest request,Long id) {
-		Optional<Product> product= productRepository.findByNameProduct(request.getNameProduct());
+	public ResponseEntity<Product> create(ProductRequest request, Long id) {
+		Optional<Product> product = productRepository.findByNameProduct(request.getNameProduct());
 		Category category = categoryRepository.findById(id).orElseThrow();
 		Product product1;
-		if (product.isEmpty()){
-			product1 = mapper.productRequestToProduc(request,category);
+		if (product.isEmpty()) {
+			product1 = mapper.productRequestToProduc(request, category);
 			productRepository.save(product1);
-		 category.getProduct().add(product1);
-
+			category.getProduct().add(product1);
 			return new ResponseEntity(new Mensaje("create product"), HttpStatus.CREATED);
 		}
-		return new ResponseEntity(new Mensaje("not create error! "),HttpStatus.BAD_REQUEST);
+		return new ResponseEntity(new Mensaje("not create error! "), HttpStatus.BAD_REQUEST);
 	}
 
+	// -----------------------ACTUALIZAR PRODUCTOS----------------------
 	@Override
-	public Product updateProduct(Long id) {
-		return null;
+	public ResponseEntity<Product> updateProduct(ProductRequest productRequest,Long id) {
+		Optional<Product> optionalProduct = productRepository.findById(id);
+		Product product = optionalProduct.orElseThrow(()-> new RuntimeException("Product Not Found"));
+		product= mapper.updateProduct(productRequest,product);
+		productRepository.save(product);
+		return new ResponseEntity(new Mensaje("Update Product"),HttpStatus.ACCEPTED);
 	}
+
+	//------------------ELIMINAR PRODUCTOS----------------------------
 	@Override
-	public ProductResponse softDelete(Long id, boolean state) {
-		return null;
+	public ResponseEntity<ProductResponse> softDelete(long id) {
+		Optional<Product> product = productRepository.findById(id);
+		Product product1;
+			if (product.get().isState()) {
+				product1 = mapper.ProductSoftDelete(product.get(), false);
+			}
+				else {
+					product1 = mapper.ProductSoftDelete(product.get(), true);
+				}
+			productRepository.save(product1);
+		return new ResponseEntity(new Mensaje("deleted"),HttpStatus.ACCEPTED);
 	}
+	//--------------BUSCAR PRODUCTOS---------------------------
 	@Override
-	public List<ProductResponse> allProduct() {
-		return null;
+	public ResponseEntity<List<ProductResponse>> allProduct() {
+	 List<Product> products = productRepository.findAll();
+	 List<ProductResponse>productList = new ArrayList<>();
+	 products.forEach(product -> {
+		 ProductResponse response = mapper.productToProductResponse(product);
+		 productList.add(response);
+	 });
+		return new ResponseEntity(productList,HttpStatus.ACCEPTED);
 	}
 	@Override
 	public ProductResponse findByName(String name) {
 		return null;
 	}
 }
+

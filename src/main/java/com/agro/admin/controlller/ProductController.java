@@ -2,7 +2,9 @@ package com.agro.admin.controlller;
 
 import com.agro.admin.models.entity.Product;
 import com.agro.admin.models.request.ProductRequest;
+import com.agro.admin.models.response.ProductResponse;
 import com.agro.admin.repository.CategoryRepository;
+import com.agro.admin.repository.ProductRepository;
 import com.agro.admin.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -24,38 +27,30 @@ public class ProductController {
 	ProductServiceImpl productService;
 	@Autowired
 	private CategoryRepository categoryRepository;
+	@Autowired
+	private ProductRepository productRepository;
 
-
-	@Transactional
 	@PostMapping("/create-product/{idCategory}")
 	public ResponseEntity<Void> saveProduct(@RequestBody @Validated ProductRequest productRequest ,@PathVariable Long idCategory) {
 		ResponseEntity<?> responseEntity=productService.create(productRequest,idCategory);
 		return new ResponseEntity(responseEntity.getBody(),responseEntity.getStatusCode());
 	}
 
+	@PutMapping("/update-product/{idCategory}")
+	public ResponseEntity<Void> updateProduct(@RequestBody @Validated ProductRequest productRequest ,@PathVariable Long idCategory) {
+		ResponseEntity<?> responseEntity=productService.updateProduct(productRequest,idCategory);
+		return new ResponseEntity(responseEntity.getBody(),responseEntity.getStatusCode());
+	}
+
+	@GetMapping("/all-product")
+	public ResponseEntity<Void> findProduct() {
+		ResponseEntity<?> responseEntity= (ResponseEntity<?>) productService.allProduct();
+		return new ResponseEntity(responseEntity.getBody(),responseEntity.getStatusCode());
+	}
+
+	@DeleteMapping("/delete-product/{idCategory}")
+	public ResponseEntity<?> deleteProduct(@PathVariable Long idCategory) {
+		ResponseEntity response = productService.softDelete(idCategory);
+		return new ResponseEntity(response.getBody(),response.getStatusCode());
+	}
   }
-
-
-
-
-//	@GetMapping("/{id}")
-//	public ResponseEntity<ProductDto> findById(@PathVariable("id") Long id) {
-//		ProductDto product = productService.findById(id);
-//		return ResponseEntity.ok(product);
-//	}
-//
-//	@DeleteMapping("/{id}")
-//	public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-//		Optional.ofNullable(productService.findById(id)).orElseThrow(() -> {
-//			log.error("Unable to delete non-existent data！");
-//			return new ResourceNotFoundException();
-//		});
-//		productService.deleteById(id);
-//		return ResponseEntity.ok().build();
-//	}
-//
-//	@PutMapping("/{id}")
-//	public ResponseEntity<Void> update(@RequestBody @Validated ProductDto productDto, @PathVariable("id") Long id) {
-//		productService.update(productDto, id);
-//		return ResponseEntity.ok().build();
-//	}

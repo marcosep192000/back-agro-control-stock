@@ -1,4 +1,5 @@
 package com.agro.admin.models.mappers;
+import java.time.LocalDateTime;
 
 import com.agro.admin.models.entity.Category;
 import com.agro.admin.models.entity.Product;
@@ -31,12 +32,32 @@ public class ProductMapper {
 	}
 	public ProductResponse productToProductResponse (Product product){
 		ProductResponse response = new ProductResponse() ;
-		response.setDescriptionProduct(product.getDescriptionProduct());
+		response.setId(product.getId());
+	response.setDescriptionProduct(product.getDescriptionProduct());
 		response.setIva(product.getIva());
 		response.setNameProduct(product.getNameProduct());
 		response.setPriceDls(product.getPriceDls());
+		response.setUpdateDate(product.getUpdateDate());
 		return response ;
 	}
+
+	public  Product ProductSoftDelete(Product pro, boolean  state ){
+		 pro.setState(state);
+		 return pro;
+	}
+	public Product updateProduct(ProductRequest productRequest, Product product){
+	    product.setNameProduct(productRequest.getNameProduct());
+	    product.setDescriptionProduct(productRequest.getDescriptionProduct());
+	    product.setPriceDls(productRequest.getPriceDls());
+	    product.setIva(productRequest.getIva());
+	    product.setState(productRequest.isState());
+	    product.setUpdateDate(productRequest.getUpdateDate());
+	    return product;
+
+
+
+	}
+
 
 }
 
