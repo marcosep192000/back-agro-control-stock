@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -52,5 +53,11 @@ public class ProductController {
 	public ResponseEntity<?> deleteProduct(@PathVariable Long idCategory) {
 		ResponseEntity response = productService.softDelete(idCategory);
 		return new ResponseEntity(response.getBody(),response.getStatusCode());
+	}
+	@GetMapping("/find-product/{name}")
+	public ResponseEntity<?> findNameProduct(@PathVariable String name) {
+		ProductResponse response = productService.findByName(name);
+
+		return new ResponseEntity(response, HttpStatus.OK);
 	}
   }

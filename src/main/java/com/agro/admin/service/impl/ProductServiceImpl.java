@@ -42,8 +42,6 @@ public class ProductServiceImpl implements IProductService {
 		}
 		return new ResponseEntity(new Mensaje("not create error! "), HttpStatus.BAD_REQUEST);
 	}
-
-	// -----------------------ACTUALIZAR PRODUCTOS----------------------
 	@Override
 	public ResponseEntity<Product> updateProduct(ProductRequest productRequest,Long id) {
 		Optional<Product> optionalProduct = productRepository.findById(id);
@@ -52,22 +50,17 @@ public class ProductServiceImpl implements IProductService {
 		productRepository.save(product);
 		return new ResponseEntity(new Mensaje("Update Product"),HttpStatus.ACCEPTED);
 	}
-
-	//------------------ELIMINAR PRODUCTOS----------------------------
 	@Override
 	public ResponseEntity<ProductResponse> softDelete(long id) {
 		Optional<Product> product = productRepository.findById(id);
-		Product product1;
+		Product product1  ;
 			if (product.get().isState()) {
-				product1 = mapper.ProductSoftDelete(product.get(), false);
-			}
-				else {
-					product1 = mapper.ProductSoftDelete(product.get(), true);
-				}
+				product1 = mapper.ProductSoftDelete(product.get(), false);}
+				else {product1 = mapper.ProductSoftDelete(product.get(), true);}
 			productRepository.save(product1);
 		return new ResponseEntity(new Mensaje("deleted"),HttpStatus.ACCEPTED);
 	}
-	//--------------BUSCAR PRODUCTOS---------------------------
+
 	@Override
 	public ResponseEntity<List<ProductResponse>> allProduct() {
 	 List<Product> products = productRepository.findAll();
@@ -80,7 +73,10 @@ public class ProductServiceImpl implements IProductService {
 	}
 	@Override
 	public ProductResponse findByName(String name) {
-		return null;
+		Optional<Product>  optionalProduct= productRepository.findByNameProduct(name);
+		Product product = optionalProduct.orElseThrow(()-> new RuntimeException("Not Product"));
+		ProductResponse productResponse = mapper.productToProductResponse(product);
+	    return productResponse;
 	}
 }
 
