@@ -45,6 +45,18 @@ public class ProductMapper {
 		 pro.setState(state);
 		 return pro;
 	}
+	public Product updateProduct(ProductRequest productRequest, Product product){
+	    product.setNameProduct(productRequest.getNameProduct());
+	    product.setDescriptionProduct(productRequest.getDescriptionProduct());
+	    product.setPriceDls(productRequest.getPriceDls());
+	    product.setIva(productRequest.getIva());
+	    product.setState(productRequest.isState());
+	    product.setUpdateDate(productRequest.getUpdateDate());
+	    return product;
+
+
+
+	}
 
 
 }

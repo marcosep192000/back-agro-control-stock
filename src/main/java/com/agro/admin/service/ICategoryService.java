@@ -1,4 +1,4 @@
-package com.agro.admin.service.interfaces;
+package com.agro.admin.service;
 
 import com.agro.admin.models.request.CategoryRequest;
 import org.springframework.http.ResponseEntity;

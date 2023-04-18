@@ -8,12 +8,11 @@ import com.agro.admin.models.response.ProductResponse;
 import com.agro.admin.repository.CategoryRepository;
 import com.agro.admin.repository.ProductRepository;
 import com.agro.admin.security.util.Mensaje;
-import com.agro.admin.service.interfaces.IProductService;
+import com.agro.admin.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -46,8 +45,12 @@ public class ProductServiceImpl implements IProductService {
 
 	// -----------------------ACTUALIZAR PRODUCTOS----------------------
 	@Override
-	public Product updateProduct(Long id) {
-		return null;
+	public ResponseEntity<Product> updateProduct(ProductRequest productRequest,Long id) {
+		Optional<Product> optionalProduct = productRepository.findById(id);
+		Product product = optionalProduct.orElseThrow(()-> new RuntimeException("Product Not Found"));
+		product= mapper.updateProduct(productRequest,product);
+		productRepository.save(product);
+		return new ResponseEntity(new Mensaje("Update Product"),HttpStatus.ACCEPTED);
 	}
 
 	//------------------ELIMINAR PRODUCTOS----------------------------
@@ -60,15 +63,10 @@ public class ProductServiceImpl implements IProductService {
 			}
 				else {
 					product1 = mapper.ProductSoftDelete(product.get(), true);
-
 				}
 			productRepository.save(product1);
 		return new ResponseEntity(new Mensaje("deleted"),HttpStatus.ACCEPTED);
 	}
-
-
-
-
 	//--------------BUSCAR PRODUCTOS---------------------------
 	@Override
 	public ResponseEntity<List<ProductResponse>> allProduct() {
@@ -80,14 +78,9 @@ public class ProductServiceImpl implements IProductService {
 	 });
 		return new ResponseEntity(productList,HttpStatus.ACCEPTED);
 	}
-
 	@Override
 	public ProductResponse findByName(String name) {
-
 		return null;
 	}
-
-
-
 }
 

@@ -36,9 +36,9 @@ public class ProductController {
 		return new ResponseEntity(responseEntity.getBody(),responseEntity.getStatusCode());
 	}
 
-	@PostMapping("/update-product/{idCategory}")
+	@PutMapping("/update-product/{idCategory}")
 	public ResponseEntity<Void> updateProduct(@RequestBody @Validated ProductRequest productRequest ,@PathVariable Long idCategory) {
-		ResponseEntity<?> responseEntity=productService.create(productRequest,idCategory);
+		ResponseEntity<?> responseEntity=productService.updateProduct(productRequest,idCategory);
 		return new ResponseEntity(responseEntity.getBody(),responseEntity.getStatusCode());
 	}
 
@@ -54,28 +54,3 @@ public class ProductController {
 		return new ResponseEntity(response.getBody(),response.getStatusCode());
 	}
   }
-
-
-
-
-//	@GetMapping("/{id}")
-//	public ResponseEntity<ProductDto> findById(@PathVariable("id") Long id) {
-//		ProductDto product = productService.findById(id);
-//		return ResponseEntity.ok(product);
-//	}
-//
-//	@DeleteMapping("/{id}")
-//	public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-//		Optional.ofNullable(productService.findById(id)).orElseThrow(() -> {
-//			log.error("Unable to delete non-existent data！");
-//			return new ResourceNotFoundException();
-//		});
-//		productService.deleteById(id);
-//		return ResponseEntity.ok().build();
-//	}
-//
-//	@PutMapping("/{id}")
-//	public ResponseEntity<Void> update(@RequestBody @Validated ProductDto productDto, @PathVariable("id") Long id) {
-//		productService.update(productDto, id);
-//		return ResponseEntity.ok().build();
-//	}
