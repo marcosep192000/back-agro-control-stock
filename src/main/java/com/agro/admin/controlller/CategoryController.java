@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+@CrossOrigin(originPatterns = "*")
 @RestController
 @RequestMapping("/category")
 public class CategoryController {

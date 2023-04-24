@@ -7,7 +7,6 @@ import java.util.Optional;
 
 public interface IProviderService {
 
-
     public List<Provider> getAllUsers() ;
 
     public Optional<Provider> getUserById(Long id) ;
