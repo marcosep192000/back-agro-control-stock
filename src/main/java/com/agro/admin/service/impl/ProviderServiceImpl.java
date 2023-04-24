@@ -31,5 +31,6 @@ public class ProviderServiceImpl implements IProviderService {
     @Override
     public void deleteUser(Long id) {
 
+
     }
 }
