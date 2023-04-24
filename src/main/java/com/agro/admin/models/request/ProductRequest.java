@@ -18,7 +18,7 @@ public class ProductRequest {
 	private String descriptionProduct;
 	private float  priceDls ;
 	private  float iva;
-	private boolean state = true;
+	private boolean state;
 	@UpdateTimestamp
 	@Column(name = "updated_on_date")
 	private LocalDateTime updateDate;
