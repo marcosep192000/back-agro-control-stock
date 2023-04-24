@@ -53,7 +53,7 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public ResponseEntity<ProductResponse> softDelete(long id) {
 		Optional<Product> product = productRepository.findById(id);
-		Product product1  ;
+		Product product1;
 			if (product.get().isState()) {
 				product1 = mapper.ProductSoftDelete(product.get(), false);}
 				else {product1 = mapper.ProductSoftDelete(product.get(), true);}
@@ -69,14 +69,15 @@ public class ProductServiceImpl implements IProductService {
 		 ProductResponse response = mapper.productToProductResponse(product);
 		 productList.add(response);
 	 });
-		return new ResponseEntity(productList,HttpStatus.ACCEPTED);
+		return new ResponseEntity(productList ,HttpStatus.ACCEPTED);
 	}
 	@Override
 	public ProductResponse findByName(String name) {
 		Optional<Product>  optionalProduct= productRepository.findByNameProduct(name);
-		Product product = optionalProduct.orElseThrow(()-> new RuntimeException("Not Product"));
+		Product product = optionalProduct.orElseThrow(()-> new Error("Not Product"));
 		ProductResponse productResponse = mapper.productToProductResponse(product);
 	    return productResponse;
+		//arreglar cuando veamos exepciones
 	}
 }
 

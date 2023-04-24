@@ -1,5 +1,4 @@
 package com.agro.admin.controlller;
-
 import com.agro.admin.models.entity.Product;
 import com.agro.admin.models.request.ProductRequest;
 import com.agro.admin.models.response.ProductResponse;
@@ -15,15 +14,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.Optional;
-
 @RestController
 @RequestMapping("/product")
 public class ProductController {
-
 	@Autowired
 	ProductServiceImpl productService;
 	@Autowired
@@ -43,6 +39,7 @@ public class ProductController {
 	@GetMapping("/all-product")
 	public ResponseEntity<Void> findProduct() {
 		ResponseEntity<?> responseEntity= (ResponseEntity<?>) productService.allProduct();
+
 		return new ResponseEntity(responseEntity.getBody(),responseEntity.getStatusCode());
 	}
 	@DeleteMapping("/delete-product/{idCategory}")
@@ -50,9 +47,11 @@ public class ProductController {
 		ResponseEntity response = productService.softDelete(idCategory);
 		return new ResponseEntity(response.getBody(),response.getStatusCode());
 	}
+	// no actualiza el estate controlar a false
 	@GetMapping("/find-product/{name}")
 	public ResponseEntity<?> findNameProduct(@PathVariable String name) {
 		ProductResponse response = productService.findByName(name);
 		return new ResponseEntity(response, HttpStatus.OK);
+		//arreglar la devolucion del producto cuando no lo encuentra.
 	}
   }
