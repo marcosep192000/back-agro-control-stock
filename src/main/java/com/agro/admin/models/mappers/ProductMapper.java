@@ -38,6 +38,7 @@ public class ProductMapper {
 		response.setNameProduct(product.getNameProduct());
 		response.setPriceDls(product.getPriceDls());
 		response.setUpdateDate(product.getUpdateDate());
+		response.setState(product.isState());
 		return response ;
 	}
 

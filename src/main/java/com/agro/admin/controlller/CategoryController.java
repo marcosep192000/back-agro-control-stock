@@ -1,5 +1,4 @@
 package com.agro.admin.controlller;
-
 import com.agro.admin.models.entity.Category;
 import com.agro.admin.models.entity.Product;
 import com.agro.admin.models.request.CategoryRequest;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
@@ -22,24 +20,30 @@ public class CategoryController {
 	ProductServiceImpl productService;
 	@Autowired
 	private CategoryRepository categoryRepository;
-
 	@PostMapping("/create")
 	public ResponseEntity<?> createCategory(@RequestBody CategoryRequest categoryRequest) {
 		ResponseEntity response = categoryService.createCategory(categoryRequest);
 		return new ResponseEntity<>(response.getBody(), response.getStatusCode());
-	}
-
+	}//crea la misma categoria realizar validacion
 	@GetMapping("/find-with-category/{id}")
 	public ResponseEntity<Product> findWhiteCategory(@RequestBody @PathVariable Long id) {
 	ResponseEntity response =  categoryService.categoryByid(id);
 		return new ResponseEntity(response.getBody(),response.getStatusCode());
 	}
-
 	@GetMapping("/findAll")
 	public ResponseEntity<List<Category>>findAll() {
 		return new ResponseEntity(categoryRepository.findAll(), HttpStatus.ACCEPTED);
 	}
+	@GetMapping("/update-category/{id}")
+	public ResponseEntity<Product> updateCategory(@RequestBody CategoryRequest categoryRequest,  @PathVariable Long id) {
+		ResponseEntity response =  categoryService.categoryByid(id);
+		return new ResponseEntity(response.getBody(),response.getStatusCode());
+	}
 
-
+	@DeleteMapping("/delete-category/{id}")
+	public ResponseEntity<Product> softDeleteCategory(@RequestBody @PathVariable Long id) {
+		ResponseEntity response =  categoryService.softDelete(id);
+		return new ResponseEntity(response.getBody(),response.getStatusCode());
+	}
 
 }

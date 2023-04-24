@@ -11,7 +11,9 @@ public class CategoryMapper {
 	    category.setNameCategory(categoryRequest.getNameCategory());
 	    category.setDescriptionCategory(categoryRequest.getDescriptionCategory());
 	    return category;
-
 	}
+	public CategoryRequest categoryToDto(Category category)	{
 
+		return null ;
+	}
 }
