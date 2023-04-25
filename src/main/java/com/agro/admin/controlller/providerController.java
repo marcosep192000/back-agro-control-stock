@@ -15,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/provider")
@@ -28,20 +29,18 @@ public class providerController {
           ResponseEntity<Provider> response = providerService.create(providerRequest);
 		  return new ResponseEntity(response.getBody(),response.getStatusCode());
 	}
-
-
-
 //	@PutMapping("/update-product/{idCategory}")
 //	public ResponseEntity<Void> updateProduct(@RequestBody @Validated ProviderRequest providerRequest , @PathVariable Long id) {
 //
 //		return new ResponseEntity(responseEntity.getBody(),responseEntity.getStatusCode());
 //	}
-//	@GetMapping("/all-product")
-//	public ResponseEntity<Void> findProduct() {
-//
-//
-//		return new ResponseEntity(responseEntity.getBody(),responseEntity.getStatusCode());
-//	}
+
+	@GetMapping("/all")
+	public ResponseEntity<?> findProduct() {
+		ResponseEntity entity=  providerService.findAll();
+
+		return new ResponseEntity(entity.getBody(),entity.getStatusCode());
+	}
 //	@DeleteMapping("/delete-product/{idCategory}")
 //	public ResponseEntity<?> deleteProduct(@PathVariable Long idCategory) {
 //

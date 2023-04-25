@@ -45,7 +45,7 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public ResponseEntity<Product> updateProduct(ProductRequest productRequest,Long id) {
 		Optional<Product> optionalProduct = productRepository.findById(id);
-		Product product = optionalProduct.orElseThrow(()-> new RuntimeException("Product Not Found"));
+		Product product = optionalProduct.orElseThrow(()-> new RuntimeException("Product Not Exist"));
 		product= mapper.updateProduct(productRequest,product);
 		productRepository.save(product);
 		return new ResponseEntity(new Mensaje("Update Product"),HttpStatus.ACCEPTED);
@@ -74,10 +74,9 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public ProductResponse findByName(String name) {
 		Optional<Product>  optionalProduct= productRepository.findByNameProduct(name);
-		Product product = optionalProduct.orElseThrow(()-> new Error("Not Product"));
+		Product product = optionalProduct.orElseThrow(()-> new RuntimeException(" Product not exist"));
 		ProductResponse productResponse = mapper.productToProductResponse(product);
 	    return productResponse;
-		//arreglar cuando veamos exepciones
 	}
 }
 
