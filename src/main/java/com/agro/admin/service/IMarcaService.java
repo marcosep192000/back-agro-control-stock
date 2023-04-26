@@ -2,18 +2,21 @@ package com.agro.admin.service;
 
 import com.agro.admin.models.entity.Marca;
 import com.agro.admin.models.entity.Provider;
+import com.agro.admin.models.request.MarcaRequest;
+import com.agro.admin.models.response.MarcaResponse;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface IMarcaService {
 
-    public List<Marca> getAllUsers() ;
+    public ResponseEntity<List<Marca>> getAll() ;
 
-    public Optional<Marca> getUserById(Long id) ;
-    public Marca createUser( Marca marca);
+    public Marca getById(Long id) ;
+    public ResponseEntity<MarcaResponse> create(MarcaRequest marcaRequest);
 
-    public Marca updateUser(Marca marca);
+    public void update(Marca marca);
 
-    public void deleteUser(Long id) ;
+    public void delete(Long id) ;
 }
