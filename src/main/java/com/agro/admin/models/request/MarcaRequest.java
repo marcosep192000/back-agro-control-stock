@@ -1,4 +1,4 @@
-package com.agro.admin.models.response;
+package com.agro.admin.models.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,8 +11,8 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MarcaResponse {
-    private Long id;
+public class MarcaRequest {
+    @NotBlank(message = "empty")
     private String nameMarca;
     private String status ;
 }
