@@ -45,7 +45,8 @@ public class ProviderMapper {
 		provider.setMail(providerRequest.getMail());
 	}
 
-	public void softDelete(Provider provider, boolean status) {
+	public Provider softDelete(Provider provider, boolean status) {
 		provider.setStatus(status);
+		return provider;
 	}
 }

@@ -9,6 +9,6 @@ import java.util.Optional;
 public interface ProviderRepository extends JpaRepository<Provider, Long> {
 	boolean existsByCuit(Integer cuit);
 
-
-
+	@Override
+	boolean existsById(Long aLong);
 }

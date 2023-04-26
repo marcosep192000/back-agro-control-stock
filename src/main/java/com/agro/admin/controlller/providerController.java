@@ -34,18 +34,19 @@ public class providerController {
 //
 //		return new ResponseEntity(responseEntity.getBody(),responseEntity.getStatusCode());
 //	}
-
 	@GetMapping("/all")
 	public ResponseEntity<?> findProduct() {
 		ResponseEntity entity=  providerService.findAll();
-
 		return new ResponseEntity(entity.getBody(),entity.getStatusCode());
 	}
-//	@DeleteMapping("/delete-product/{idCategory}")
-//	public ResponseEntity<?> deleteProduct(@PathVariable Long idCategory) {
-//
-//		return new ResponseEntity(response.getBody(),response.getStatusCode());
-//	}
+
+
+
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
+		  	ResponseEntity response = providerService.delete(id);
+		return new ResponseEntity(response.getBody(),response.getStatusCode());
+	}
 //	// no actualiza el estate controlar a false
 //	@GetMapping("/find-product/{name}")
 //	public ResponseEntity<?> findNameProduct(@PathVariable String name) {

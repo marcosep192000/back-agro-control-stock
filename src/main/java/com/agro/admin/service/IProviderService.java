@@ -13,5 +13,5 @@ public interface IProviderService {
     public Optional<Provider> getById(Long id) ;
     public ResponseEntity<Provider> create(ProviderRequest providerRequest);
     public Provider update(Provider Provider);
-    public void delete(Long id) ;
+    public ResponseEntity delete(Long id) ;
 }
