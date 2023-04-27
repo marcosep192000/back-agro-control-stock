@@ -1,16 +1,16 @@
 package com.agro.admin.models.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 public class Marca {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

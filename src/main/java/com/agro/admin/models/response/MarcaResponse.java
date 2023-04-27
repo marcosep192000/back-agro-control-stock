@@ -14,5 +14,4 @@ import javax.validation.constraints.NotBlank;
 public class MarcaResponse {
     private Long id;
     private String nameMarca;
-    private String status ;
 }
