@@ -39,14 +39,13 @@ public class MarcaServiceImpl implements IMarcaService {
     }
 
     @Override
-    public ResponseEntity<?> update(MarcaRequest request,Long id ) {
-        Marca marca = marcaRepository.findById(id).orElseThrow(()-> new RuntimeException("NOT FOUND,MARCA NOT EXIST"));
-        if (marca.isStatus())
-        {
+    public ResponseEntity<?> update(MarcaRequest request, Long id) {
+        Marca marca = marcaRepository.findById(id).orElseThrow(() -> new RuntimeException("NOT FOUND,MARCA NOT EXIST"));
+        if (marca.isStatus()) {
             marca.setNameMarca(request.getNameMarca());
             return new ResponseEntity(new Mensaje("MARCA UPDATE"), HttpStatus.ACCEPTED);
         }
-        return new ResponseEntity(new Mensaje("NOT FOUND"),HttpStatus.BAD_REQUEST) ;
+        return new ResponseEntity(new Mensaje("NOT FOUND"), HttpStatus.BAD_REQUEST);
     }
 
     @Override
@@ -58,6 +57,4 @@ public class MarcaServiceImpl implements IMarcaService {
         } else marca.setStatus(true);
         return new ResponseEntity<>(new Mensaje("modify"), HttpStatus.CONTINUE);
     }
-
-
 }
