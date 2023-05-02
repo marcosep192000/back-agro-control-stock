@@ -5,6 +5,7 @@ import com.agro.admin.models.entity.Provider;
 import com.agro.admin.models.request.MarcaRequest;
 import com.agro.admin.models.response.MarcaResponse;
 import net.bytebuddy.agent.builder.AgentBuilder;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public interface IMarcaService {
 
     public ResponseEntity<?> update(MarcaRequest request,Long id);
 
+    List<Marca> all ();
 
     public ResponseEntity<?> delete(Long id) ;
 }

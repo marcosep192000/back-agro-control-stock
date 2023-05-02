@@ -14,5 +14,5 @@ import javax.validation.constraints.NotBlank;
 public class MarcaRequest {
     @NotBlank(message = "empty")
     private String nameMarca;
-    private String status ;
+    private boolean status ;
 }

@@ -2,7 +2,14 @@ package com.agro.admin.models.mappers;
 
 import com.agro.admin.models.entity.Marca;
 import com.agro.admin.models.request.MarcaRequest;
+import org.springframework.stereotype.Component;
+@Component
+public class MarcaMapper{
+	public Marca entityToDto(MarcaRequest marcaRequest) {
 
-public class MarcaMapper {
-
+		return Marca.builder()
+				.nameMarca(marcaRequest.getNameMarca())
+				.status(true)
+				.build();
+	}
 }
