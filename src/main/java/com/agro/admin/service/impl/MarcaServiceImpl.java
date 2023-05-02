@@ -7,12 +7,16 @@ import com.agro.admin.models.response.MarcaResponse;
 import com.agro.admin.repository.MarcaRepository;
 import com.agro.admin.security.util.Mensaje;
 import com.agro.admin.service.IMarcaService;
+import org.hibernate.Filter;
+import org.hibernate.Session;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -32,19 +36,18 @@ public class MarcaServiceImpl implements IMarcaService {
     public Marca getById(Long id) {
         return null;
     }
-
-    @Override
     @Transactional
+    @Override
     public ResponseEntity<MarcaResponse> create(MarcaRequest marcaRequest) {
-            Optional<Marca> marca =marcaRepository.findByNameMarca(marcaRequest.getNameMarca());
-        if (marca.isEmpty()) {
-            Marca marca1 = marcaMapper.entityToDto(marcaRequest);
-            marcaRepository.save(marca1);
-            return new ResponseEntity(new Mensaje("create"), HttpStatus.CREATED);
-        }
-        return new   ResponseEntity(new Mensaje("Exist Marca"),HttpStatus.BAD_REQUEST);
-    }
+        Optional<Marca> marcaFind = marcaRepository.findByNameMarca(marcaRequest.getNameMarca());
 
+        if (marcaFind.isEmpty()) {
+            Marca marca =new Marca();
+            marca.setNameMarca(marcaRequest.getNameMarca());
+            marcaRepository.save(marca);
+            return new ResponseEntity(new Mensaje("create"), HttpStatus.CREATED);
+        } else throw new RuntimeException("error");
+    }
     @Override
     public ResponseEntity<?> update(MarcaRequest request, Long id) {
         Marca marca = marcaRepository.findById(id).orElseThrow(() -> new RuntimeException("NOT FOUND,MARCA NOT EXIST"));
@@ -54,20 +57,17 @@ public class MarcaServiceImpl implements IMarcaService {
         }
         return new ResponseEntity(new Mensaje("NOT FOUND"), HttpStatus.BAD_REQUEST);
     }
-
     @Override
-    public List<Marca>all() {
-     List<Marca> responseEntity =  marcaRepository.findAll();
-        return responseEntity;
+    public List<Marca> all() {
+        return null;
     }
-
     @Override
     public ResponseEntity<?> delete(Long id) {
-        Marca marca = marcaRepository.findById(id).orElseThrow(() -> new RuntimeException("Marca not exist"));
-        if (marca.isStatus()) {
-            marca.setStatus(false);
-            return new ResponseEntity<>(new Mensaje("deleted"), HttpStatus.ACCEPTED);
-        } else marca.setStatus(true);
-        return new ResponseEntity<>(new Mensaje("modify"), HttpStatus.CONTINUE);
+            marcaRepository.deleteById(id);
+            return new ResponseEntity<>(new Mensaje("delete"), HttpStatus.ACCEPTED);
+        }
+
     }
-}
+
+
+
