@@ -20,6 +20,8 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+
+
 @Service
 public class MarcaServiceImpl implements IMarcaService {
     @Autowired
@@ -66,6 +68,10 @@ public class MarcaServiceImpl implements IMarcaService {
             marcaRepository.deleteById(id);
             return new ResponseEntity<>(new Mensaje("delete"), HttpStatus.ACCEPTED);
         }
+
+
+
+
 
     }
 
