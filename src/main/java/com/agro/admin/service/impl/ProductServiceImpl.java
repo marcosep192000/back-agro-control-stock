@@ -38,10 +38,12 @@ public class ProductServiceImpl implements IProductService {
 			product1 = mapper.productRequestToProduc(request, category);
 			productRepository.save(product1);
 			category.getProduct().add(product1);
-			return new ResponseEntity(new Mensaje("create product"), HttpStatus.CREATED);
+			return new ResponseEntity(new Mensaje("product created successfully!"), HttpStatus.CREATED);
 		}
-		return new ResponseEntity(new Mensaje("not create error! "), HttpStatus.BAD_REQUEST);
+		return new ResponseEntity(new Mensaje("product could not be loaded"), HttpStatus.BAD_REQUEST);
 	}
+//------------------------------------------- create ok  --------------------------------------------------------
+
 	@Override
 	public ResponseEntity<Product> updateProduct(ProductRequest productRequest,Long id) {
 		Optional<Product> optionalProduct = productRepository.findById(id);
@@ -50,17 +52,20 @@ public class ProductServiceImpl implements IProductService {
 		productRepository.save(product);
 		return new ResponseEntity(new Mensaje("Update Product"),HttpStatus.ACCEPTED);
 	}
+
+	//------------------------------------------- update state ok   --------------------------------------------------------
 	@Override
 	public ResponseEntity<ProductResponse> softDelete(long id) {
 		Optional<Product> product = productRepository.findById(id);
-		Product product1;
-			if (product.get().isState()) {
-				product1 = mapper.ProductSoftDelete(product.get(), false);}
-				else {product1 = mapper.ProductSoftDelete(product.get(), true);}
-			productRepository.save(product1);
-		return new ResponseEntity(new Mensaje("deleted"),HttpStatus.ACCEPTED);
+		if (product.isEmpty()) {
+			new RuntimeException("not EXIST ID");
+		}
+			productRepository.deleteById(id);
+			return new ResponseEntity(new Mensaje("deleted"), HttpStatus.ACCEPTED);
+
 	}
 
+	//------------------------------------------- softDelete state corregir por nuevo soft delete  --------------------------------------------------------
 	@Override
 	public ResponseEntity<List<ProductResponse>> allProduct() {
 	 List<Product> products = productRepository.findAll();
@@ -71,6 +76,9 @@ public class ProductServiceImpl implements IProductService {
 	 });
 		return new ResponseEntity(productList ,HttpStatus.ACCEPTED);
 	}
+	//------------------------------------------- allproduct ok  --------------------------------------------------------
+
+
 	@Override
 	public ProductResponse findByName(String name) {
 		Optional<Product>  optionalProduct= productRepository.findByNameProduct(name);
@@ -79,4 +87,4 @@ public class ProductServiceImpl implements IProductService {
 	    return productResponse;
 	}
 }
-
+//------------------------------------------- allproduct ok  --------------------------------------------------------
