@@ -3,6 +3,7 @@ package com.agro.admin.models.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 @Getter @Setter
