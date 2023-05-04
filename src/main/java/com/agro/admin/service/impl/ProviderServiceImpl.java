@@ -22,7 +22,6 @@ public class ProviderServiceImpl implements IProviderService {
 	ProviderRepository providerRepository;
 	@Autowired
 	ProviderMapper mapper;
-	//
 	@Override
 	public ResponseEntity<List<ProviderResponse>> findAll() {
 		List<Provider> provider = providerRepository.findAll();
@@ -52,7 +51,6 @@ public class ProviderServiceImpl implements IProviderService {
 	@Transactional
 	@Override
 	public Provider update(Provider Provider) {
-
 		return null;
 	}
 	@Transactional
@@ -66,5 +64,4 @@ public class ProviderServiceImpl implements IProviderService {
 			throw new RuntimeException("This provider has been deleted before");
 		}
 	}
-
 }
