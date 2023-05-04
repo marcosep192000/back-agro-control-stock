@@ -9,6 +9,8 @@ import com.agro.admin.repository.CategoryRepository;
 import com.agro.admin.repository.ProductRepository;
 import com.agro.admin.security.util.Mensaje;
 import com.agro.admin.service.IProductService;
+import net.bytebuddy.implementation.bytecode.Throw;
+import org.springframework.beans.NotReadablePropertyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,8 +44,7 @@ public class ProductServiceImpl implements IProductService {
 		}
 		return new ResponseEntity(new Mensaje("product could not be loaded"), HttpStatus.BAD_REQUEST);
 	}
-//------------------------------------------- create ok  --------------------------------------------------------
-
+//------------------------------------------- create ok  -----------------------------------------------------------
 	@Override
 	public ResponseEntity<Product> updateProduct(ProductRequest productRequest,Long id) {
 		Optional<Product> optionalProduct = productRepository.findById(id);
@@ -53,19 +54,17 @@ public class ProductServiceImpl implements IProductService {
 		return new ResponseEntity(new Mensaje("Update Product"),HttpStatus.ACCEPTED);
 	}
 
-	//------------------------------------------- update state ok   --------------------------------------------------------
+	//------------------------------------------- update state ok   -----------------------------------------------
 	@Override
 	public ResponseEntity<ProductResponse> softDelete(long id) {
 		Optional<Product> product = productRepository.findById(id);
-		if (product.isEmpty()) {
-			new RuntimeException("not EXIST ID");
-		}
-			productRepository.deleteById(id);
-			return new ResponseEntity(new Mensaje("deleted"), HttpStatus.ACCEPTED);
-
+		if (product.isEmpty()|| product.isPresent()) {
+			return new ResponseEntity (new Mensaje("This product not exist."),HttpStatus.BAD_REQUEST);}
+		productRepository.deleteById(id);
+		return new ResponseEntity(new Mensaje("deleted"), HttpStatus.ACCEPTED);
 	}
+	//------------------------------------------- softDelete state corrector por nuevo soft delete  ----------------
 
-	//------------------------------------------- softDelete state corregir por nuevo soft delete  --------------------------------------------------------
 	@Override
 	public ResponseEntity<List<ProductResponse>> allProduct() {
 	 List<Product> products = productRepository.findAll();
@@ -76,8 +75,7 @@ public class ProductServiceImpl implements IProductService {
 	 });
 		return new ResponseEntity(productList ,HttpStatus.ACCEPTED);
 	}
-	//------------------------------------------- allproduct ok  --------------------------------------------------------
-
+	//------------------------------------------- allproduct ok  ----------------------------------------------------
 
 	@Override
 	public ProductResponse findByName(String name) {
