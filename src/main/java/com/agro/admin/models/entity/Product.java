@@ -7,6 +7,9 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
+
+import static javax.persistence.FetchType.EAGER;
+
 @Data
 @Entity
 @Table(name = "product")
@@ -29,7 +32,7 @@ public class Product {
 	@Column(name = "updated_on_date")
 	private LocalDateTime updateDate;
 
-	@ManyToOne
+	@ManyToOne(fetch = EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "category_id")
 	Category category;
-
 }
