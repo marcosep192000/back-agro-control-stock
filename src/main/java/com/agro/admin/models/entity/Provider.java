@@ -16,7 +16,7 @@ public class Provider {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    @NotBlank(message = " i can't be empty ")
+    @NotBlank(message = " i can't be empty")
     private String nameProvider;
     private Integer cuit;
     private String address;
