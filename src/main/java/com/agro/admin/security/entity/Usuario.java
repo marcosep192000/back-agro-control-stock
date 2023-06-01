@@ -31,7 +31,6 @@ public class Usuario {
 		public Usuario() {
 		}
 
-		//Constuctor sin Id ni Roles
 		public Usuario(@NotNull String nombre,
 					   @NotNull String nombreUsuario,
 					   @NotNull String email,
