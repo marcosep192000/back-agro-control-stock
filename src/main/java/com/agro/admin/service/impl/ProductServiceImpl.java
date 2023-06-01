@@ -38,6 +38,7 @@ public class ProductServiceImpl implements IProductService {
 			product1 = mapper.productRequestToProduc(request, category);
 			productRepository.save(product1);
 			category.getProduct().add(product1);
+
 			return new ResponseEntity(new Mensaje("product created successfully!"), HttpStatus.CREATED);
 		}
 		return new ResponseEntity(new Mensaje("product could not be loaded"), HttpStatus.BAD_REQUEST);
