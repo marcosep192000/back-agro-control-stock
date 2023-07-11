@@ -44,10 +44,8 @@ public class MarcaServiceImpl implements IMarcaService {
 
     @Override
     public void  create(MarcaRequest request) {
-        boolean existMarca = repository.existsByName(request.getName());
-
-        if (existMarca){
-             throw new RuntimeException("dsadad");
+        if (repository.existsByName(request.getName())){
+             throw new RuntimeException("exists!");
         }else {
             Marca marca = marcaMapper.dtoToEntity(request);
             repository.save(marca);
@@ -62,9 +60,10 @@ public class MarcaServiceImpl implements IMarcaService {
         repository.save(marca1);
         return marca1;
     }
-
     @Override
     public void delete(Long id) {
-        repository.deleteById(id);
+        if (repository.findById(id).isPresent()){
+            repository.deleteById(id);
+        }else {throw  new RuntimeException("NOT EXIST!");}
     }
 }
