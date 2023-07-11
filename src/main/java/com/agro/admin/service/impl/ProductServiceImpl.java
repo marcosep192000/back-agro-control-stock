@@ -18,7 +18,6 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 @Service
 @Transactional
 public class ProductServiceImpl implements IProductService {
@@ -41,20 +40,17 @@ Product product1;
 	}
 		return new ResponseEntity(new Mensaje("not create error! "),HttpStatus.BAD_REQUEST);
 	}
-
-
 	@Override
-	public ResponseEntity<Product> create(ProductRequest request,Long id) {
+	public ResponseEntity<Product> create(ProductRequest request) {
 		Optional<Product> product= productRepository.findByNameProduct(request.getNameProduct());
-		Category category = categoryRepository.findById(id).orElseThrow();
+		Category category = categoryRepository.findById(request.getId_category()).orElseThrow();
 		Product product1;
 		if (product.isEmpty()){
 			product1 = mapper.productRequestToProduc(request,category);
 			productRepository.save(product1);
 		 category.getProduct().add(product1);
 			return new ResponseEntity(new Mensaje("create product"), HttpStatus.CREATED);
-		}
-		return new ResponseEntity(new Mensaje("not create error! "),HttpStatus.BAD_REQUEST);
+		}return new ResponseEntity(new Mensaje("not create error! "),HttpStatus.BAD_REQUEST);
 	}
 	@Override
 	public Product updateProduct(Long id) {
@@ -65,8 +61,6 @@ Product product1;
 		return null;
 	}
 
-	//find products --------------------------------------------------
-	//----------------------------------------------------------------
 	@Override
 	public ResponseEntity<List<ProductResponse>> allProduct() {
 	 List<Product> products = productRepository.findAll();
@@ -79,10 +73,6 @@ Product product1;
 
 		return new ResponseEntity(productList,HttpStatus.ACCEPTED);
 	}
-
-
-
-
 	@Override
 	public ProductResponse findByName(String name) {
 		return null;

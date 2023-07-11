@@ -14,11 +14,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ProductRequest {
 	@NotBlank(message = "name is not empty!")
-	private  String nameProduct;
+	private String nameProduct;
 	private String descriptionProduct;
 	private float  priceDls ;
-	private  float iva;
+	private float iva;
 	private boolean state = true;
+	private long id_category;
 	@UpdateTimestamp
 	@Column(name = "updated_on_date")
 	private LocalDateTime updateDate;

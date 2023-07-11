@@ -10,13 +10,13 @@ import java.util.Optional;
 
 @Component
 public class ProductMapper {
+
 	public Product productRequestToProduct(ProductRequest request){
 		Product product = new Product();
 		product.setDescriptionProduct(request.getDescriptionProduct());
 		product.setIva(request.getIva());
 		product.setNameProduct(request.getNameProduct());
 		product.setPriceDls(request.getPriceDls());
-
 		return  product;
 	}
 	public Product productRequestToProduc(ProductRequest request, Category category){
@@ -26,7 +26,6 @@ public class ProductMapper {
 		product.setNameProduct(request.getNameProduct());
 		product.setPriceDls(request.getPriceDls());
 		product.setCategory(category);
-
 		return  product;
 	}
 	public ProductResponse productToProductResponse (Product product){
@@ -39,8 +38,6 @@ public class ProductMapper {
 		response.setUpdateDate(product.getUpdateDate());
 		return response ;
 	}
-
-
 }
 
 

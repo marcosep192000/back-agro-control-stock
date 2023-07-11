@@ -16,4 +16,11 @@ public class Provider {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "id", nullable = false)
 	private Long id;
+    private String name;
+    private int cuit;
+    private String address;
+    private String phone;
+    private String contact;
+    private String mail;
+    private boolean state = true;
 }

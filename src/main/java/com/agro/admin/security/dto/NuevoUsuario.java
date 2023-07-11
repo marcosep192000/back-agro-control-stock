@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class NuevoUsuario {
-
 	@NotBlank
 	private String nombre;
 	@NotBlank
@@ -15,8 +14,7 @@ public class NuevoUsuario {
 	private String email;
 	@NotBlank
 	private String password;
-	//Por defecto crea un usuario normal
-	//Si quiero un usuario Admin debo pasar este campo roles
+
 	private Set<String> roles = new HashSet<>();
 
 	public String getNombre() {

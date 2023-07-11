@@ -19,14 +19,12 @@ public class Product {
 	@NotBlank (message = "name is not empty!")
 	private  String nameProduct;
 	private String descriptionProduct;
-	private float  priceDls ;
+	private float  priceDls;
 	private  float iva;
 	private boolean state = true;
 	@UpdateTimestamp
 	@Column(name = "updated_on_date")
 	private LocalDateTime updateDate;
-
 	@ManyToOne
 	Category category;
-
 }
