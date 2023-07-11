@@ -12,8 +12,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CategoryResponse {
+
 	private Long id;
+
 	private String nameCategory ;
+
 	private String descriptionCategory;
+
 	private List<Product> product = new ArrayList<>();
+
 }

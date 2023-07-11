@@ -13,6 +13,7 @@ import java.util.List;
  @NoArgsConstructor
 @AllArgsConstructor
 public class CategoryRequest {
+
 	private String nameCategory ;
 	private String descriptionCategory;
 	private List<Product> product = new ArrayList<>();

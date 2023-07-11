@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CategoryMapper {
 	public Category categoryRequestToCategory(CategoryRequest categoryRequest){
+
 	    Category category = new Category();
 	    category.setNameCategory(categoryRequest.getNameCategory());
 	    category.setDescriptionCategory(categoryRequest.getDescriptionCategory());
