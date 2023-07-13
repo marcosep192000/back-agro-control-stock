@@ -1,13 +1,9 @@
 package com.agro.admin.controlller;
 
-import com.agro.admin.models.entity.Marca;
 import com.agro.admin.models.request.MarcaRequest;
-import com.agro.admin.models.request.ProductRequest;
 import com.agro.admin.models.response.MarcaResponse;
-import com.agro.admin.service.IMarcaService;
 import com.agro.admin.service.impl.MarcaServiceImpl;
 import com.agro.admin.util.Message;
-import com.agro.admin.util.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -17,6 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins ="*")
 @RequestMapping("/v1/api/marca")
 public class MarcaController {
 	@Autowired
